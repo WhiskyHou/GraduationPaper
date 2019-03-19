@@ -100,29 +100,20 @@ Node.js 大部分基本模块都用 JavaScript 语言编写。在 Node.js 出现
 
 Node.js 主要有以下技术特点：
 1. 单线程
-
     Node.js 以单线程运行，使用非阻塞 I/O 调用，这样既可以支持数以万计的并发连线，又不会因多线程本身的特点而带来麻烦。众多请求只使用单线程的设计意味着可以用于创建高并发应用程序。Node.js 应用程序的设计目标是任何需要操作 I/O 的函数都使用回调函数。
 
     这种设计的缺点是，如果不使用 cluster、StrongLoop Process Manager 或 pm2 等模块，Node.js 就难以处理多核或多线程等情况。
-
 2. V8
-
     V8是为 Google Chrome 设计的 JavaScript 运行引擎，Google 于2008年将其开源。V8 用 C++ 编写，它将 JavaScript源代码编译成本地机器码而不是随时解释。
 
     Node.js 用 libuv 来处理异步事件，而 V8 提供了 JavaScript 的实时运行环境。libuv 是一个网络和文件系统功能的抽象层，既可以用于 Windows 又可以用于匹配 POSIX 标准的系统，例如Linux、macOS 和 Unix。
 
     Node.js 的核心功能被包含进一个 JavaScript 库，并通过 C++ 将各部分与操作系统进行联系。
-
 3. npm
-
     npm 是 Node.js 附带的包管理器。npm 是一个命令行工具，用于从 NPM Registry 中下载、安装 Node.js 程序，同时解决依赖问题。npm 提高了开发的速度，因为它能够负责第三方 Node.js 程序的安装与管理。
-
 4. 统一 API
-
     Node.js 将浏览器、数据（例如 MongoDB 或 CouchDB）等组合到一起，通过 JSON 提供一个统一的接口。由于前端框架和一些基本的后端开发技术（如 MVC、MVP、MVVM 等）变得流行，Node.js 也支持客户端和服务器端重新利用相同的模型和接口。
-
 5. 事件循环
-
     Node.js 将其注册到操作系统中，这样可以及时注意到新连接的产生。当新连接产生时，操作系统会产生一个回调。在 Node.js 运行时内部，每个连接都被分配一个小型的堆。与其他服务器程序不同的是，Node.js 不使用进程或线程处理连接，而是采用事件循环来处理并发连接。而且 Node.js 的事件循环不需要手动调用。在回调函数定义之后，服务器进入事件循环。当回调函数均被执行完毕之后，Node.js 结束事件循环。
 
 ## 2.4 本章小结
