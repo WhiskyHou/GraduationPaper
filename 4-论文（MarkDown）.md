@@ -247,7 +247,7 @@ Node.js 主要有以下技术特点：
 | 开发工具   | Unity   | 2018.3.6  |
 | IDE | Visual Studio | 2017 |
 | IDE | VS Code | 1.23.1 |
-| 运行环境 | Node.JS | 9.8.0 |
+| Runtime | Node.JS | 9.8.0 |
 | 数据库 | MySQL | 8.0.15 |
 | 语言 | C# | .NET Framework 4.x |
 | 语言 | Typescript | 2.8.3 |
