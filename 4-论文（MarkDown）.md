@@ -320,6 +320,10 @@ Node.js 主要有以下技术特点：
 
 服务端是该项目的必需部分，负责支持整个项目功能运行。服务端主要包含数据库读写和请求接口实现两大部分，在该项目的运行中，涉及到网络请求的功能较多，因此需要服务端有较强的数据库读写能力和请求处理能力。下面将对服务端进行模块划分，并对其详细分析。
 
+服务端文件结构设计如图 4.4 所示，服务端采用 node.js 运行环境、TypeScript 语言开发、JavaScript 语言执行的方式进行构建。根目录下 src 目录用于储存源代码，即 TypeScript 代码。src 目录下的 index 文件为服务端请求处理和响应部分，dbHelper 文件为数据库操作部分，其余文件分别为各个结构的逻辑实现部分。build 目录下的文件结构和 src 目录下的文件结构一致，为 TypeScript 编译后的 JavaScript 文件，是服务端真正运行的代码。node_modules 目录下为服务端项目所用到的依赖库的文件，由 node.js 的包管理器（npm）自动维护管理的。最后 tsconfig.json 配置文件说明了服务端项目的编译规范，package.json 配置文件说明了项目的基本信息、调试和运行信息和依赖关系。
+
+![服务端目录结构](./论文图示/服务端目录结构.png)
+
 1. 请求处理模块
 
 请求处理模块是服务端的入口部分，负责构建服务端监听，以及请求的处理和响应。
@@ -339,6 +343,36 @@ Node.js 主要有以下技术特点：
 >   4. 响应类型：返回数据以 JSON 的形式序列化，按照 UTF-8 标准编码。
 
 2. 逻辑计算中间层
+
+逻辑计算中间层包括了所有的逻辑代码，负责数据库接口的调用，以及数据的处理和响应数据的构建。同时这部分也是接口的具体实现部分。下面是各个接口的参数和返回数据规范。
+
+>   1. signin
+>       * 参数 - username, password
+>       * 返回 - error (0 成功，1 密码错误，2 用户名错误) data
+>   2. signup
+>       * 参数 - username, password, nickname
+>       * 返回 - error (0 成功，1 已被占用，2 服务端失败)
+>   3. uploadMap
+>       * 参数 - map
+>       * 返回 - status (0 成功，1 服务端失败)
+>   4. getMaps
+>       * 参数 - 无
+>       * 返回 - error (0 成功，1 服务端错误) maps
+>   5. getMapById
+>       * 参数 - mid
+>       * 返回 - map
+>   6. getRemoteMapsInfo
+>       * 参数 - uid, username, password, nickname
+>       * 返回 - error (0 成功，1 服务端失败) maps
+>   7. upgradeMapInfo
+>       * 参数 - type, uid, mid, time(可选)
+>       * 返回 - error（0 成功，1 已经有了，2 服务端失败）
+>   8. getGoodRank
+>       * 参数 - user
+>       * 返回 - error（0 成功，1 服务器失败）me list
+>   8. getCreateRank
+>       * 参数 - user
+>       * 返回 - error（0 成功，1 服务器失败）me list
 
 3. 数据库读写模块
 
