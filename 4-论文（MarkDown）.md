@@ -465,19 +465,20 @@ Node.js 主要有以下技术特点：
 
 客户端工程名为 RunnerMaker，使用 Unity 引擎 2018.3.6 版本创建，项目类型为 2D，项目目录结构为标准 Unity 规范。新建 Unity 项目如图 5.1 所示：
 
-![客户端工程创建](./论文图示/客户端工程创建.png)
+<div align=center><img src="./论文图示/客户端工程创建.png" width=40%></div>
 
 2. 导入龙骨动画（DragonBones）支持库
 
 由于本项目采用 DragonBones 来制作和实现游戏角色动画，所以需要在项目中添加 DragonBones 对 Unity 引擎的支持库，也就是添加 DragonBonesForUnity.unitypackage 文件。在 Unity 编辑器中的资源预览窗口中，在 Assets 目录下右键导入，弹出如图 5.2 所示的弹窗，勾选所有文件后选择导入。
 
-![导入DragonBones支持库](./论文图示/导入DragonBones支持库.png)
+<div align=center><img src="./论文图示/导入DragonBones支持库.png" width=40%></div>
 
 3. 配置版本控制文件
 
 首先在工程目录下通过命令行工具输入命令 “git init” 来初始化 Git 仓库，然后分别创建 .gitigonre 和 .gitattributes 文件，用于说明 Git 仓库的文件监听规则和文本文件行尾规则，如图 5.3 所示：
 
-![git配置文件](./论文图示/git配置文件.png)
+<div align=center><img src="./论文图示/git配置文件.png" width=40%></div>
+
 
 ### <div id="5-1-2"> 5.1.2 服务端工程构建
 1. 创建 Node.js 工程
@@ -488,7 +489,7 @@ Node.js 主要有以下技术特点：
 
 同样还在工程根目录下通过命令行工具执行命令 “tsc --init” 来创建 TypeScript 的编译配置文件 tsconfig.json，然后在工程根目录中分别创建 src 和 build 文件夹，用于存放源代码和编译后的目标代码，最后修改 tsconfig.json 文件如图 5.4 所示：
 
-![tsconfig文件](./论文图示/tsconfig文件.png)
+<div align=center><img src="./论文图示/tsconfig文件.png" width=40%></div>
 
 3. 安装环境依赖
 
@@ -588,7 +589,7 @@ CREATE TABLE `diff` (
 
 在本项目的初期阶段，由于采用局域网内部署，服务端和数据库部署在了一台 macOS 计算机上，所以采用了 Sequel Pro 作为可视化数据库管理软件，界面如图 5.5 所示：
 
-![数据库管理软件](./论文图示/数据库管理软件.png)
+<div align=center><img src="./论文图示/数据库管理软件.png" width=40%></div>
 
 ## <div id="5-2"> 5.2 角色控制器实现
 ### <div id="5-2-1"> 5.2.1 输入设备控制
