@@ -463,13 +463,132 @@ Node.js 主要有以下技术特点：
 ### <div id="5-1-1"> 5.1.1 客户端工程构建
 1. 创建 Unity 工程
 
-客户端工程名为 RunnerMaker，使用 Unity 引擎 2018.3.6 版本创建，项目类型为 2D，项目目录结构为标准 Unity 规范。
+客户端工程名为 RunnerMaker，使用 Unity 引擎 2018.3.6 版本创建，项目类型为 2D，项目目录结构为标准 Unity 规范。新建 Unity 项目如图 5.1 所示：
+
+![客户端工程创建](./论文图示/客户端工程创建.png)
 
 2. 导入龙骨动画（DragonBones）支持库
 
+由于本项目采用 DragonBones 来制作和实现游戏角色动画，所以需要在项目中添加 DragonBones 对 Unity 引擎的支持库，也就是添加 DragonBonesForUnity.unitypackage 文件。在 Unity 编辑器中的资源预览窗口中，在 Assets 目录下右键导入，弹出如图 5.2 所示的弹窗，勾选所有文件后选择导入。
+
+![导入DragonBones支持库](./论文图示/导入DragonBones支持库.png)
+
 3. 配置版本控制文件
+
+首先在工程目录下通过命令行工具输入命令 “git init” 来初始化 Git 仓库，然后分别创建 .gitigonre 和 .gitattributes 文件，用于说明 Git 仓库的文件监听规则和文本文件行尾规则，如图 5.3 所示：
+
+![git配置文件](./论文图示/git配置文件.png)
+
 ### <div id="5-1-2"> 5.1.2 服务端工程构建
+1. 创建 Node.js 工程
+
+服务端工程名为 RunnerMakerServer，首先创建 RunnerMakerServer 文件夹，在文件夹下通过命令行工具执行命令 “npm init” 来初始化 npm 的配置文件。
+
+2. 配置 TypeScript 编译配置文件
+
+同样还在工程根目录下通过命令行工具执行命令 “tsc --init” 来创建 TypeScript 的编译配置文件 tsconfig.json，然后在工程根目录中分别创建 src 和 build 文件夹，用于存放源代码和编译后的目标代码，最后修改 tsconfig.json 文件如图 5.4 所示：
+
+![tsconfig文件](./论文图示/tsconfig文件.png)
+
+3. 安装环境依赖
+
+由于服务端工程采用从 TypeScript 编译到 JavaScript 的开发方式，并且需要操纵数据库，所以需要添加相关的运行环境依赖，在命令行工具中分别执行 “npm install @types/node”、“npm install @types/mysql” 和 “npm install mysql” 命令。
+
+4. 配置版本控制文件
+
+首先通过命令行工具执行 “git init” 命令来初始化 Git 仓库，然后创建 .gitigonre 文件来说明 Git 仓库的文件监听规则。
+
 ### <div id="5-1-3"> 5.1.3 数据库构建
+
+1. 创建数据库
+
+数据库采用 MySQL，储存引擎采用 InnoDB，编码采用 UTF-8，数据库名为 Runner。
+
+2. 根据实体-关系图创建数据表
+
+创建 user 表：
+```SQL
+CREATE TABLE `user` (
+  `uid` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `username` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '',
+  `password` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '',
+  `nickname` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '',
+  PRIMARY KEY (`uid`)
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
+```
+
+创建 map 表：
+```SQL
+CREATE TABLE `map` (
+  `mid` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `uid` int(11) unsigned NOT NULL,
+  `nickname` varchar(40) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '',
+  `count_down` int(11) unsigned NOT NULL DEFAULT '0',
+  `width` int(11) unsigned NOT NULL DEFAULT '0',
+  `height` int(11) unsigned NOT NULL DEFAULT '0',
+  `start_x` int(11) unsigned NOT NULL DEFAULT '0',
+  `start_y` int(11) unsigned NOT NULL DEFAULT '0',
+  `end_x` int(11) unsigned NOT NULL DEFAULT '0',
+  `end_y` int(11) unsigned NOT NULL DEFAULT '0',
+  `good_count` int(11) unsigned NOT NULL DEFAULT '0',
+  `diff_count` int(11) unsigned NOT NULL DEFAULT '0',
+  `pass_count` int(11) unsigned NOT NULL DEFAULT '0',
+  `trys_count` int(11) unsigned NOT NULL DEFAULT '0',
+  `nodes_data` json NOT NULL,
+  PRIMARY KEY (`mid`),
+  KEY `belong` (`uid`),
+  CONSTRAINT `belong` FOREIGN KEY (`uid`) REFERENCES `user` (`uid`)
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+```
+
+创建 pass 表：
+```SQL
+CREATE TABLE `pass` (
+  `pid` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `uid` int(11) unsigned NOT NULL,
+  `mid` int(11) unsigned NOT NULL,
+  `time` float unsigned NOT NULL,
+  PRIMARY KEY (`pid`),
+  KEY `uid_pass` (`uid`),
+  KEY `mid_pass` (`mid`),
+  CONSTRAINT `mid_pass` FOREIGN KEY (`mid`) REFERENCES `map` (`mid`),
+  CONSTRAINT `uid_pass` FOREIGN KEY (`uid`) REFERENCES `user` (`uid`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+```
+
+创建 good 表：
+```SQL
+CREATE TABLE `good` (
+  `gid` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `uid` int(11) unsigned NOT NULL,
+  `mid` int(11) unsigned NOT NULL,
+  PRIMARY KEY (`gid`),
+  KEY `uid_r` (`uid`),
+  KEY `mid_r` (`mid`),
+  CONSTRAINT `mid_r` FOREIGN KEY (`mid`) REFERENCES `map` (`mid`),
+  CONSTRAINT `uid_r` FOREIGN KEY (`uid`) REFERENCES `user` (`uid`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+```
+
+创建 diff 表：
+```SQL
+CREATE TABLE `diff` (
+  `did` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `uid` int(11) unsigned NOT NULL,
+  `mid` int(11) unsigned NOT NULL,
+  PRIMARY KEY (`did`),
+  KEY `uid_diff` (`uid`),
+  KEY `mid_diff` (`mid`),
+  CONSTRAINT `mid_diff` FOREIGN KEY (`mid`) REFERENCES `map` (`mid`),
+  CONSTRAINT `uid_diff` FOREIGN KEY (`uid`) REFERENCES `user` (`uid`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+```
+
+3. 可视化数据库管理软件
+
+在本项目的初期阶段，由于采用局域网内部署，服务端和数据库部署在了一台 macOS 计算机上，所以采用了 Sequel Pro 作为可视化数据库管理软件，界面如图 5.5 所示：
+
+![数据库管理软件](./论文图示/数据库管理软件.png)
 
 ## <div id="5-2"> 5.2 角色控制器实现
 ### <div id="5-2-1"> 5.2.1 输入设备控制
