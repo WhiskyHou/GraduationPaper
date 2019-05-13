@@ -51,7 +51,7 @@
         * [游戏体验模块界面实现](#5-3-1)
         * [游戏体验模块管理器实现](#5-3-2)
         * [游戏地图组件实现](#5-3-3)
-    * 地图编辑器模块实现
+    * [地图编辑器模块实现](#5-4)
         * 地图编辑界面管理
         * 编辑控制器
         * 编辑模式组件
@@ -843,44 +843,46 @@ Post 方法需要两个必选参数分别为接口名称和请求数据，和一
 
 Stone 组件根据设计要求，只需要固定在地图中并提供和角色各个角度的碰撞，所以只需添加刚体组件和 2D 碰撞体组件，如图 5.x 所示。
 
-<div align=center><img src="./论文图示/stone组件图.png" width=40%></div>
+<div align=center><img src="./论文图示/Stone组件图.png" width=40%></div>
 
 2. Ice 组件
 
 Ice 组件需要在角色触碰到后一定时间后消失，通过添加 Ice 脚本并挂载到对象上，Ice 脚本中会响应 OnCollisionEnter2D 事件。
 
-<div align=center><img src="./论文图示/ice组件图.png" width=40%></div>
+<div align=center><img src="./论文图示/Ice组件图.png" width=40%></div>
 
 3. Brick 组件
 
 Brick 组件需要在被角色顶到中间位置的时候消失，所以另外在其底部添加了一个触发器，并在 Brick 脚本中响应 OnTriggerEnter2D 事件。
 
-<div align=center><img src="./论文图示/brick组件图.png" width=40%></div>
+<div align=center><img src="./论文图示/Brick组件图.png" width=40%></div>
 
 4. Spring 组件
 
 Spring 组件需要在角色落到其上方时给角色施加一个向上的弹力，所以在其上部添加了一个触发器，并在 Spring 组件中通过响应 OnTriggerEnter2D 事件的方式来对角色施加影响，并且可以在 Unity 中配置弹力大小。
 
-<div align=center><img src="./论文图示/spring组件图.png" width=40%></div>
+<div align=center><img src="./论文图示/Spring组件图.png" width=40%></div>
 
 5. Cannon 组件
 
 Cannon 组件是 “大炮” 设计中的炮架子，自身与角色之间没有直接的功能，专门用来创建 Bullet，通过 Cannon 脚本来实现 Bullet 的实例化以及初始化，可以配置其发射的时间间隔。
 
-<div align=center><img src="./论文图示/cannon组件图.png" width=40%></div>
+<div align=center><img src="./论文图示/Cannon组件图.png" width=40%></div>
 
 Bullet 是真的需要和角色以及其他组件交互的对象，通过挂载 Bullet 脚本来控制其飞行方向、射程以及飞行速度。由于炮弹的形状不规则，所以使用多边形碰撞器来进行碰撞检测，通过响应 OnCollisionEnter2D 事件来销毁自己或者继续出发角色死亡事件。
 
-<div align=center><img src="./论文图示/bullet组件图.png" width=40%></div>
+<div align=center><img src="./论文图示/Bullet组件图.png" width=40%></div>
 
 6. Sword 组件
 
 Sword 组件由两部分组成，其基座是 Stone 组件，围绕基座有一个旋转的光柱，通过 Sword 脚本可以配置其旋转速度，并响应 OnTriggerEnter2D 事件来触发角色死亡事件。
 
-<div align=center><img src="./论文图示/sword组件图.png" width=40%></div>
+<div align=center><img src="./论文图示/Sword组件图.png" width=40%></div>
 
 7. Killer 组件
 
 Killer 组件与 Stone 组件的区别在于角色从各个方向碰到 Killer 组件都会造成角色死亡，所以通过 Killer 脚本响应 OnCollisionEnter2D 事件来触发角色死亡事件。
 
-<div align=center><img src="./论文图示/killer组件图.png" width=40%></div>
+<div align=center><img src="./论文图示/Killer组件图.png" width=40%></div>
+
+## <div id="5-4"> 5.4 地图编辑器模块实现
