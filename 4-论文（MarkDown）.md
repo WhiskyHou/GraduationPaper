@@ -1,6 +1,16 @@
 # 摘要
+二维跳台游戏是非常经典的游戏类型，不乏有《超级马里奥》这样家喻户晓的游戏作品，但是随着信息技术、图形技术和网络技术的发展，近年来的游戏作品质量不断提高，游戏类型也愈来愈丰富。相比较之下二维跳台类游戏的玩法机制就显得较为陈旧，纯粹的传统二维跳台游戏以及难以吸引当下的玩家，而地图编辑器的加入，可以带来更加丰富的玩法体验，玩家可以自己创作编辑地图关卡，并借助网络和其他玩家进行分享。
+
+本文基于 Unity 引擎设计并实现了一个二维跳台游戏及其地图编辑器，并且基于 Nodejs 运行环境实现了它的网络服务。本文主要叙述了《跑跑制造》的开发工作，项目包括客户端和服务端两部分，用户在客户端中进行地图创作和分享游玩，服务端为客户端提供网络功能的支持。在开发工作中，首先对项目进行了需求分析，在明确了项目基本背景和要求后，以功能模块为驱动进行了系统设计和详细设计，并产出了设计文档和原型设计图。然后对项目进行具体实现，采用 UML 建模的方式辅助程序设计，并从界面和逻辑两部分分别进行了代码实现。最后对项目进行测试，针对需求和设计中提到的功能分别进行了功能测试和性能测试，并且成功运行在局域网环境的桌面电脑上，满足了开发需求。
+
+关键词：Unity，游戏，地图编辑器
 
 # Abstract
+2D Jump platform games are very classic game types, and there are many well-known game works like "Super Mario". However, with the development of information technology, graphic technology and network technology, the quality of game works has been continuously improved in recent years, and the types of games are becoming more and more abundant. In comparison, the gameplay mechanism of the 2D jump platform game is relatively old, pure traditional 2D jump platform game and difficult to attract the current players. And the addition of the map editor can bring a richer gameplay experience. Players can create and edit game maps and share them with other players on the network.
+
+This paper designs and implements a 2D jump platform game and its map editor based on the Unity engine, and implements its network service based on the Nodejs runtime environment. This paper mainly describes the development of "Runner Maker". The project includes two parts: client and server. The user creates maps and shares the game maps in the client. The server provides network functions support for the client. In the development work, the project was analyzed first. After the basic background and requirements of the project were clarified, the system design and detailed design were driven by functional modules, and the design documents and prototype design drawings were produced. Then the project is concretely implemented, use UML to assist the program design, and the code is implemented separately from the interface and logic. Finally, the project was tested, and the functions and performance tests were carried out for the functions mentioned in the requirements and design, and successfully run on the desktop computer in the LAN environment to meet the development needs.
+
+Key words: Unity, game, map editor
 
 # 目录
 * **摘要**
