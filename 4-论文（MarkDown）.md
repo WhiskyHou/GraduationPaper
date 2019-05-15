@@ -6,9 +6,9 @@
 **关键词：** Unity，游戏，地图编辑器
 
 # <div id="ab-en"> Abstract
-2D Jump platform games are very classic game types, and there are many well-known game works like "Super Mario". However, with the development of information technology, graphic technology and network technology, the quality of game works has been continuously improved in recent years, and the types of games are becoming more and more abundant. In comparison, the gameplay mechanism of the 2D jump platform game is relatively old, pure traditional 2D jump platform game and difficult to attract the current players. And the addition of the map editor can bring a richer gameplay experience. Players can create and edit game maps and share them with other players on the network.
+2D platform games are very classic game types, and there are many well-known game works like "Super Mario". However, with the development of information technology, graphic technology and network technology, the quality of game works has been continuously improved in recent years, and the types of games are becoming more and more abundant. In comparison, the gameplay mechanism of the 2D platform game is relatively old, pure traditional 2D platform game and difficult to attract the current players. And the addition of the map editor can bring a richer gameplay experience. Players can create and edit game maps and share them with other players on the network.
 
-This paper designs and implements a 2D jump platform game and its map editor based on the Unity engine, and implements its network service based on the Nodejs runtime environment. This paper mainly describes the development of "Runner Maker". The project includes two parts: client and server. The user creates maps and shares the game maps in the client. The server provides network functions support for the client. In the development work, the project was analyzed first. After the basic background and requirements of the project were clarified, the system design and detailed design were driven by functional modules, and the design documents and prototype design drawings were produced. Then the project is concretely implemented, use UML to assist the program design, and the code is implemented separately from the interface and logic. Finally, the project was tested, and the functions and performance tests were carried out for the functions mentioned in the requirements and design, and successfully run on the desktop computer in the LAN environment to meet the development needs.
+This paper designs and implements a 2D platform game and its map editor based on the Unity engine, and implements its network service based on the Nodejs runtime environment. This paper mainly describes the development of "Runner Maker". The project includes two parts: client and server. The user creates maps and shares the game maps in the client. The server provides network functions support for the client. In the development work, the project was analyzed first. After the basic background and requirements of the project were clarified, the system design and detailed design were driven by functional modules, and the design documents and prototype design drawings were produced. Then the project is concretely implemented, use UML to assist the program design, and the code is implemented separately from the interface and logic. Finally, the project was tested, and the functions and performance tests were carried out for the functions mentioned in the requirements and design, and successfully run on the desktop computer in the LAN environment to meet the development needs.
 
 **Key words:** Unity, game, map editor
 
@@ -17,9 +17,11 @@ This paper designs and implements a 2D jump platform game and its map editor bas
 * **[Abstract](#ab-en)**
 * **[目录](#menu)**
 * **[第一章 绪论](#1)**
-    * [选题背景及意义](#1-1)
-    * [论文工作内容](#1-2)
-    * [论文组织结构](#1-3)
+    * [选题背景](#1-1)
+    * [国内外二维跳台游戏现状](#1-2)
+    * [研究意义](#1-3)
+    * [论文工作内容](#1-4)
+    * [论文组织结构](#1-5)
 * **[第二章 相关技术概述](#2)**
     * [游戏引擎](#2-1)
     * [Unity 游戏引擎](#2-2)
@@ -93,17 +95,32 @@ This paper designs and implements a 2D jump platform game and its map editor bas
 ## <div id="1-1"> 1.1 选题背景及意义 
 目前中国国内游戏产业的发展较为迅速，《2018年中国游戏产业报告》指出中国游戏市场2018年实际销售收入达2144.4亿元，同比增长5.3%，相比2017年23%的增速有所放缓。其中，移动游戏市场实际销售收入占中国游戏市场的比例已经高达62.5%。与移动游戏市场保持增长和收入占比持续增加相反，2018年中国客户端游戏市场实际销售收入同比下降4.5%，在整个游戏市场的份额也从2017年的31.9%下降至28.9%。
 
-从报告中可以看出，中国游戏市场仍然处于增长趋势，但是增幅的变缓和客户端游戏份额的下跌，也体现出了目前游戏产业所遇到的瓶颈。近几年，经典玩法游戏的创新匮乏，像诸如《超级马里奥》这样的二维跳台类游戏，只通过经典的关卡式玩法已经不足以维持玩家的热度。而针对二维跳台类游戏的创新，也有很好的成功案例，例如腾讯推出的手机游戏《天天酷跑》，通过扩充游戏玩法，再与社交关系链结合，成功收获了大量用户。
+与此同时，随着 Unity 这样的游戏引擎的诞生，游戏的开发的技术门槛也在逐渐降低。截至 2018 年，Unity 引擎在全功能通用游戏引擎中占据 45% 的市场份额，全球开发者已经超过 330 万人，同时中国市场占据了其全部市场份额的四分之一以上。
 
-在近一年的软件日活跃用户排名中，前十名中有两位是短视频类软件，即抖音和快手，二者的共同特点都是 “内容创作与分享”，这说明内容创作与分享已然成为目前非常受欢迎的一种模式。将传统二维跳台类游戏与这种模式相结合，进行二次创新，其中 “内容创作” 就是玩家可以自主编辑地图、创造地图，“分享” 就是通过网络共享所有玩家的创作，并利用一些手段将所有玩家联系起来。目前利用这种方式制作的游戏有任天堂（NINTendo）公司推出的《马里奥制造》，但是由于官方只发布了 WiiU 平台，而在 PC 平台和移动平台上，还没有代表性的作品。所以本课题 “二维跳台类游戏地图编辑器” 这一围绕核心地图编辑器的游戏，在探索经典玩法游戏创新的道路上很有意义。
-## <div id="1-2"> 1.2 论文工作内容
+综上可以看出，中国游戏市场仍处于增长阶段，技术的进步和门槛的降低已经吸引了大量开发者，为游戏市场的发展提供了基础。但是增幅的放缓和客户端游戏份额的下跌，也都体现出了整体创新力逐渐匮乏的趋势。
+
+## <div id="1-2"> 1.2 国内外二维跳台游戏现状
+跳台游戏（Platform game）是一种游戏类别，属于动作游戏（Action Game）的一个子类别，主要的游戏方式是在2D平面上使用各种方式在悬浮平台上进行移动和穿过各种障碍。玩家通常可以控制角色跳跃的高度和距离来避免角色落入深渊或者错失重要道具，这类游戏最为统一的元素就是跳跃。
+
+基于这种游戏类别进行创作，成功的代表作非常多。例如以躲避障碍和闯关为条件的如《超级马里奥》、《索尼科》等，以收集奖励道具为主的如《天天酷跑》等，以战斗设计为主的如《合金弹头》、《魂斗罗》等，以冒险探索为主的如《三位一体》、《冒险岛》等。在 Steam 游戏平台上，2019 年 1 月到 4 月的这段时间中，就有 60 余款跳台类独立游戏发布。可以看出这种类型的游戏在历史上不乏有优秀的作品，目前也拥有较强的活力。
+
+二维跳台游戏的优势主要在于三个方面。首先，这类游戏的开发成本较低，游戏本身不需要大量的三维美术素材和场景，同时程序开发工作量相较于其它大型游戏更加简单。其次，玩法创新度高，设计游戏的时候局限性小，容易结合其它玩法和游戏故事叙述。第三，游戏通配性很好，对于硬件设备及其性能的要求较低，目标用户和受众范围广泛，生活中游玩场景较多。
+
+## <div id="1-3"> 1.3 研究意义
+上节中对二维跳台游戏的发展现状，和游戏类型的优势进行了叙述，可以发现要做出成功的作品，需要在二维跳台游戏的基础类型上，做出符合互联网和游戏趋势的创新。
+
+在最近一年的软件日活跃用户排名中，前十名中有两位是短视频类软件，即抖音和快手，二者的共同特点都是 “内容创作与分享”，这说明内容创作与分享已然成为目前非常受欢迎的一种模式。将传统二维跳台类游戏与这种模式相结合，进行二次创新，其中 “内容创作” 就是玩家可以自主编辑地图、创造地图，“分享” 就是通过网络共享所有玩家的创作，并利用一些手段将所有玩家联系起来。
+
+目前利用这种方式制作的游戏有任天堂（NINTendo）公司推出的《马里奥制造》，但是由于官方只发布了 WiiU 平台，而在 PC 平台和移动平台上，还没有代表性的作品。所以本课题 “二维跳台类游戏地图编辑器” 这一围绕核心地图编辑器的游戏，在探索经典玩法游戏创新的道路上很有意义。
+
+## <div id="1-4"> 1.4 论文工作内容
 本人在项目中担任产品设计、程序实现、测试等一系列工作，工作大致内容如下：
 1. 根据题目描述进行需求分析，对游戏玩法和编辑器进行设计。
 2. 实现客户端中游戏游玩的部分，主要包括游戏主体、玩法逻辑、组件模块逻辑等。
 3. 实现客户端中地图编辑器的部分，主要包括交互界面、编辑逻辑、数据储存等。
 4. 实现服务端的功能，主要包括用户数据系统、地图数据系统、与客户端通信等。
 5. 将游戏发布到 PC 平台，并在局域网部署服务器，实现游戏和编辑器的正常运行。
-## <div id="1-3"> 1.3 论文组织结构
+## <div id="1-5"> 1.5 论文组织结构
 本论文主要研究了《Runner Maker》这款二维跳台类游戏及其地图编辑器的设计与实现。本文组织结构如下：
 
 第一章为绪论部分。通过对去年中国游戏产业的现状的介绍，分析了传统游戏玩法创新的必要性，叙述了本论文的研究意义，并且说明了本人在项目中的主要工作，以及本论文的组织结构。
